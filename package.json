@@ -1,0 +1,27 @@
+{
+  "name": "gestor-de-gastos",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Gestor personal de gastos e ingresos. Local, sin servidor externo.",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "dev": "concurrently -n servidor,web -c blue,magenta \"npm:dev:servidor\" \"npm:dev:web\"",
+    "dev:servidor": "node --watch --disable-warning=ExperimentalWarning server/src/index.js --no-abrir",
+    "dev:web": "npm --workspace web run dev",
+    "build": "npm --workspace web run build",
+    "start": "node --disable-warning=ExperimentalWarning server/src/index.js",
+    "iniciar": "npm run build && npm start",
+    "test": "node --test --disable-warning=ExperimentalWarning \"server/pruebas/*.test.js\" \"web/pruebas/*.test.ts\"",
+    "test:seguimiento": "node --test --watch --disable-warning=ExperimentalWarning \"server/pruebas/*.test.js\" \"web/pruebas/*.test.ts\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
